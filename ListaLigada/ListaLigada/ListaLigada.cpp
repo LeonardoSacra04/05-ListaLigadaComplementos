@@ -185,6 +185,7 @@ void excluirElemento()
 				{
 					ant->prox = NULL;
 					ultimo = ant;
+
 				}
 				else
 				{
