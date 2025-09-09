@@ -31,7 +31,7 @@ void menu()
 	int op = 0;
 	while (op != 7) {
 		system("cls"); // somente no windows
-		cout << "Menu Lista Ligada";
+		cout << "Menu Lista Ligada Ordenada";
 		cout << endl << endl;
 		cout << "1 - Inicializar Lista \n";
 		cout << "2 - Exibir quantidade de elementos \n";

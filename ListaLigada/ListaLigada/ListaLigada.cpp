@@ -1,13 +1,16 @@
 #include <iostream>
 using namespace std;
 
-// definicao de tipo
-struct NO {
+// definição de tipo
+struct NO 
+{
 	int valor;
 	NO* prox;
 };
 
 NO* primeiro = NULL;
+NO* ultimo = NULL;
+NO* ant = NULL;
 
 // headers
 void menu();
@@ -70,41 +73,45 @@ void menu()
 void inicializar()
 {
 	// se a lista já possuir elementos
-// libera a memoria ocupada
+	// libera a memoria ocupada
 	NO* aux = primeiro;
-	while (aux != NULL) {
+	while (aux != NULL) 
+	{
 		NO* paraExcluir = aux;
 		aux = aux->prox;
 		free(paraExcluir);
 	}
 
 	primeiro = NULL;
+	ultimo = NULL;
 	cout << "Lista inicializada \n";
-
 }
 
-void exibirQuantidadeElementos() {
-
+void exibirQuantidadeElementos() 
+{
 	int nElementos = 0;
 	NO* aux = primeiro;
-	while (aux != NULL) {
+	while (aux != NULL) 
+	{
 		nElementos++;
 		aux = aux->prox;
 	}
 	cout << "Quantidade de elementos: " << nElementos << endl;
-
 }
 
 void exibirElementos()
 {
-	if (primeiro == NULL) {
+	if (primeiro == NULL) 
+	{
 		cout << "Lista vazia \n";
 		return;
 	}
-	else {
+	else 
+	{
 		cout << "Elementos: \n";
 		NO* aux = primeiro;
-		while (aux != NULL) {
+		while (aux != NULL) 
+		{
 			cout << aux->valor << endl;
 			aux = aux->prox;
 		}
@@ -124,24 +131,74 @@ void inserirElemento()
 	cin >> novo->valor;
 	novo->prox = NULL;
 
+	NO* ExisteValor = posicaoElemento(novo->valor);
+	if (ExisteValor != NULL)
+	{
+		cout << "O elemento ja existe" << endl;
+		return;
+	};
+
 	if (primeiro == NULL)
 	{
 		primeiro = novo;
+		ultimo = novo;
+		ultimo->prox = NULL;
 	}
 	else
 	{
-		// procura o final da lista
-		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
-		}
-		aux->prox = novo;
+		ultimo->prox = novo;
+		ultimo = novo;
 	}
 }
 
 void excluirElemento()
 {
+	NO* atual = primeiro;
+	NO* ant = NULL;
+	int del;
 
+	if (primeiro == NULL)
+	{
+		cout << "Sem elementos na lista" << endl;
+		return;
+	}
+
+	cout << "Qual elemento vai ser deletado" << endl;
+	cin >> del;
+	NO* buscar = posicaoElemento(del);
+
+	if (buscar == NULL)
+	{
+		cout << "Elemento nao existe na lista" << endl;
+	}
+	else
+	{
+		while (buscar != NULL)
+		{
+			if (del == atual->valor)
+			{
+				if (del == primeiro->valor)
+				{
+					primeiro = atual->prox;
+				}
+				else if (del == ultimo->valor)
+				{
+					ant->prox = NULL;
+					ultimo = ant;
+				}
+				else
+				{
+					ant->prox = atual->prox;
+				}
+				free(atual);
+				cout << "O elemento " << del << " foi deletado" << endl;
+				break;
+			}
+			
+			ant = atual;
+			atual = atual->prox;
+		}
+	}
 }
 
 void buscarElemento()
@@ -149,4 +206,16 @@ void buscarElemento()
 
 }
 
-
+NO* posicaoElemento(int numero)
+{
+	NO* aux = primeiro;
+	while (aux != NULL) 
+	{
+		if (aux->valor == numero)
+		{
+			break;
+		}
+		aux = aux->prox;
+	}
+	return aux;
+}
