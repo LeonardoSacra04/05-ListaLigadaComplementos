@@ -10,7 +10,6 @@ struct NO
 
 NO* primeiro = NULL;
 NO* ultimo = NULL;
-NO* ant = NULL;
 
 // headers
 void menu();
@@ -21,6 +20,7 @@ void inserirElemento();
 void excluirElemento();
 void buscarElemento();
 NO* posicaoElemento(int numero);
+int ordem(int numero);
 //--------------------------
 
 int main()
@@ -31,7 +31,8 @@ int main()
 void menu()
 {
 	int op = 0;
-	while (op != 7) {
+	while (op != 7) 
+	{
 		system("cls"); // somente no windows
 		cout << "Menu Lista Ligada";
 		cout << endl << endl;
@@ -48,24 +49,23 @@ void menu()
 
 		switch (op)
 		{
-		case 1: inicializar();
-			break;
-		case 2: exibirQuantidadeElementos();
-			break;
-		case 3: exibirElementos();
-			break;
-		case 4: buscarElemento();
-			break;
-		case 5: inserirElemento();
-			break;
-		case 6: excluirElemento();
-			break;
-		case 7:
-			return;
-		default:
-			break;
+			case 1: inicializar();
+				break;
+			case 2: exibirQuantidadeElementos();
+				break;
+			case 3: exibirElementos();
+				break;
+			case 4: buscarElemento();
+				break;
+			case 5: inserirElemento();
+				break;
+			case 6: excluirElemento();
+				break;
+			case 7:
+				return;
+			default:
+				break;
 		}
-
 		system("pause"); // somente no windows
 	}
 }
@@ -75,6 +75,7 @@ void inicializar()
 	// se a lista já possuir elementos
 	// libera a memoria ocupada
 	NO* aux = primeiro;
+
 	while (aux != NULL) 
 	{
 		NO* paraExcluir = aux;
@@ -91,6 +92,7 @@ void exibirQuantidadeElementos()
 {
 	int nElementos = 0;
 	NO* aux = primeiro;
+
 	while (aux != NULL) 
 	{
 		nElementos++;
@@ -185,7 +187,6 @@ void excluirElemento()
 				{
 					ant->prox = NULL;
 					ultimo = ant;
-
 				}
 				else
 				{
@@ -195,7 +196,6 @@ void excluirElemento()
 				cout << "O elemento " << del << " foi deletado" << endl;
 				break;
 			}
-			
 			ant = atual;
 			atual = atual->prox;
 		}
@@ -204,7 +204,34 @@ void excluirElemento()
 
 void buscarElemento()
 {
+	// caso o elemento que o usuário quer encontrar seja encontrado,
+	// ele exibe se o elemento é o primeiro, o último ou a posição
+	// caso não seja nenhuma das outras opções
+	int busca;
+	cout << "Digite o elemento a ser buscado" << endl;
+	cin >> busca;
+	NO* buscar = posicaoElemento(busca);
 
+	if (buscar != NULL)
+	{
+		if (busca == primeiro->valor)
+		{
+			cout << "Elemento encontrado na primeira posicao" << endl;
+		}
+		else if (busca == ultimo->valor)
+		{
+			cout << "Elemento encontrado na ultima posicao" << endl;
+		}
+		else
+		{
+			int pos = ordem(busca);
+			cout << "Elemento encontrado na posicao " << pos << endl;
+		}
+	}
+	else
+	{
+		cout << "Elemento nao encontrado" << endl;
+	}
 }
 
 NO* posicaoElemento(int numero)
@@ -219,4 +246,17 @@ NO* posicaoElemento(int numero)
 		aux = aux->prox;
 	}
 	return aux;
+}
+
+int ordem(int numero)
+{
+	NO* indicador = primeiro;
+	int cont = 1;
+
+	while (indicador != posicaoElemento(numero))
+	{
+		indicador = indicador->prox;
+		cont++;
+	}
+	return cont;
 }
