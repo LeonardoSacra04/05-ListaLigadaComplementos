@@ -134,6 +134,7 @@ void inserirElemento()
 	if (ExisteValor != NULL)
 	{
 		cout << "O elemento ja existe" << endl;
+		free(novo);
 		return;
 	};
 
@@ -170,6 +171,7 @@ void inserirElemento()
 
 void excluirElemento()
 {
+	//alterações feitas no posicaoElemento para otimização
 	int del;
 	cout << "Digite o elemento a ser deletado: " << endl;
 	cin >> del;
@@ -184,7 +186,7 @@ void excluirElemento()
 	NO* atual = primeiro;
 	NO* anterior = NULL;
 
-	while (atual != NULL && atual->valor > del)
+	while (atual != NULL)
 	{
 		if (atual->valor == del)
 		{
@@ -197,7 +199,7 @@ void excluirElemento()
 				anterior->prox = atual->prox;
 			}
 			free(atual);
-			cout << "O elemento " << del << "foi deletado com sucesso!" << endl;
+			cout << "O elemento " << del << " foi deletado com sucesso!" << endl;
 			break;
 		}
 		anterior = atual;
@@ -207,7 +209,7 @@ void excluirElemento()
 
 void buscarElemento()
 {
-	// alterações feitas no posicaoElemento
+	// alterações feitas no posicaoElemento para otimização
 	NO* aux = primeiro;
 	int busca;
 
