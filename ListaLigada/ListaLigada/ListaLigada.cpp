@@ -207,6 +207,13 @@ void buscarElemento()
 	// caso o elemento que o usuário quer encontrar seja encontrado,
 	// ele exibe se o elemento é o primeiro, o último ou a posição
 	// caso não seja nenhuma das outras opções
+
+	if (primeiro == NULL)
+	{
+		cout << "Sem elementos na lista" << endl;
+		return;
+	}
+
 	int busca;
 	cout << "Digite o elemento a ser buscado" << endl;
 	cin >> busca;
