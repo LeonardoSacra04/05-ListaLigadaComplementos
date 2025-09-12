@@ -141,6 +141,7 @@ void inserirElemento()
 	if (primeiro == NULL)
 	{
 		primeiro = novo;
+		cout << "O elemento foi adicionado na primeira posicao" << endl;
 	}
 	else
 	{
@@ -150,17 +151,21 @@ void inserirElemento()
 			{
 				primeiro = novo;
 				primeiro->prox = atual;
+				cout << "O elemento foi adicionado na primeira posicao" << endl;
 				return;
 			}
 			else if (atual->valor > novo->valor)
 			{
 				anterior->prox = novo;
 				novo->prox = atual;
+				int pos = posicaoElemento(novo->valor); //indica em qual posição o elemento foi inserido de forma mais fácil ao usuário
+				cout << "O elemento foi adicionado na posicao " << pos << endl;
 				return;
 			}
 			else if (atual->prox == NULL)
 			{
 				atual->prox = novo;
+				cout << "O elemento foi adicionado na ultima posicao" << endl;
 				return;
 			}
 			anterior = atual;
@@ -172,6 +177,13 @@ void inserirElemento()
 void excluirElemento()
 {
 	//alterações feitas no posicaoElemento para otimização
+
+	if (primeiro == NULL)
+	{
+		cout << "Lista vazia" << endl;
+		return;
+	}
+
 	int del;
 	cout << "Digite o elemento a ser deletado: " << endl;
 	cin >> del;
@@ -210,6 +222,13 @@ void excluirElemento()
 void buscarElemento()
 {
 	// alterações feitas no posicaoElemento para otimização
+
+	if (primeiro == NULL)
+	{
+		cout << "Lista vazia" << endl;
+		return;
+	}
+
 	NO* aux = primeiro;
 	int busca;
 
